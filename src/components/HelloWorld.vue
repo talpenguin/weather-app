@@ -1,151 +1,93 @@
+<script>
+export default {
+  name: "HelloWorld",
+  data() {
+    return {
+      selected: null
+    };
+  },
+  props: {
+    collection: { type: Array }
+  },
+  methods: {
+    collectionAsArray() {
+      if (this.collection) {
+        return this.collection.map(({ dt, dt_txt, weather, main }) => {
+          return {
+            id: dt,
+            date: dt_txt,
+            img: weather[0].main,
+            temp: main.temp
+          };
+        });
+      }
+    },
+    toggle(e, i) {
+      this.selected = this.collectionAsArray().find(el => el.id === i);
+    },
+    getImage(src) {
+      return require(`../assets/${src}.svg`);
+    },
+    getTempInCel(temp) {
+      return `${parseInt(temp - 273.15)} C`;
+    }
+  }
+};
+</script>
+
 <template>
-  <v-container>
-    <v-row class="text-center">
-      <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col>
-
-      <v-col class="mb-4">
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a
-            href="https://community.vuetifyjs.com"
-            target="_blank"
-          >Discord Community</a>
-        </p>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          What's next?
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
+  <v-container class="fill-height">
+    <v-sheet
+      align-center
+      justify-center
+      class="mx-auto"
+      elevation="8"
+      max-width="900"
+    >
+      <v-expand-transition>
+        <v-sheet v-if="collection != null" height="200" tile>
+          <v-row class="fill-height" align="center" justify="center">
+            <h3 v-if="this.selected" class="text-h6">
+              {{ this.selected.date }}
+              <v-img width="92" :src="`${getImage(this.selected.img)}`" />
+            </h3>
+          </v-row>
+        </v-sheet>
+      </v-expand-transition>
+      <v-slide-group v-model="collection" class="pa-4 reounded" show-arrows>
+        <v-slide-item
+          v-for="{ id, date, img, temp } in collectionAsArray()"
+          :value="id"
+          :key="id"
+          v-slot="{ active }"
+        >
+          <v-card
+            :class="active ? 'primary' : 'blue-grey darken-3'"
+            height="250"
+            width="100"
+            @click="toggle($event, id)"
           >
-            {{ next.text }}
-          </a>
-        </v-row>
-      </v-col>
+            <v-row align="center">
+              {{ date }}
 
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Important Links
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-row>
-      </v-col>
-
-      <v-col
-        class="mb-5"
-        cols="12"
-      >
-        <h2 class="headline font-weight-bold mb-3">
-          Ecosystem
-        </h2>
-
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
-      </v-col>
-    </v-row>
+              <v-col class="text-h6" cols="8">
+                {{ getTempInCel(temp) }}
+              </v-col>
+              <v-col cols="10">
+                <v-img :src="`${getImage(img)}`" :alt="img" width="92"></v-img>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-slide-item>
+      </v-slide-group>
+    </v-sheet>
   </v-container>
 </template>
 
-<script>
-  export default {
-    name: 'HelloWorld',
-
-    data: () => ({
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
-        },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com',
-        },
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com',
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuejs.com/vuetify',
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs',
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify',
-        },
-      ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer',
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/getting-started/pre-made-layouts',
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions',
-        },
-      ],
-    }),
-  }
-</script>
+<style scoped>
+.container ::v-deep .v-sheet,
+.container ::v-deep .v-icon {
+  background-color: #263238;
+  color: white;
+}
+</style>

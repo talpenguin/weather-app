@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "lodash": "^4.17.21",
     "vue": "^2.6.11",
     "vuetify": "^2.4.0"
   },
@@ -38,7 +39,14 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-debugger": "off",
+      "no-console": "off",
+      "no-unused-vars": "off"
+    },
+    "globals": {
+      "_": true
+    }
   },
   "browserslist": [
     "> 1%",

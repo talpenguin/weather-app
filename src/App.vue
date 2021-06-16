@@ -25,8 +25,7 @@ export default {
 <template>
   <v-app>
     <v-main>
-      <HelloWorld />
-      {{ weatherData }}
+      <HelloWorld :collection="weatherData"/>
     </v-main>
   </v-app>
 </template>
