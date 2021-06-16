@@ -1,28 +1,32 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
-</template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import axios from "axios";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HelloWorld
+  },
+
+  data() {
+    return {
+      weatherData: null
+    };
+  },
+  // fetch data from api using proxy to avoid cors error
+  beforeMount() {
+    axios.get(`${process.env.WEATHER_API}`).then(response => {
+      this.weatherData = response.data.list;
+    });
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <v-app>
+    <v-main>
+      <HelloWorld />
+      {{ weatherData }}
+    </v-main>
+  </v-app>
+</template>
