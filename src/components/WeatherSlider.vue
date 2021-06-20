@@ -6,7 +6,7 @@ export default {
   components: { WeatherCard },
   props: {
     collection: { type: Array }
-  },
+  }
 };
 </script>
 

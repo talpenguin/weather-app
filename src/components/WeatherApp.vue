@@ -36,7 +36,7 @@ export default {
     },
     // formate date to desired pattern
     formatDate(date) {
-      return moment(new Date(date)).format("DD.MM  hh:mm");
+      return moment(new Date(date)).format("DD.MM.YY hh:mm");
     },
     // toggle display of selected time interval
     toggle(id) {
@@ -57,7 +57,6 @@ export default {
         :collection="collectionAsArray()"
         :selected="this.selected"
       />
-
       <weather-slider
         :collection="collectionAsArray()"
         @click="toggle($event)"
@@ -84,5 +83,16 @@ body {
 .container ::v-deep .v-card {
   padding: 20px;
   text-align: center;
+}
+
+.fade-transition-enter-active,
+.fade-transition-leave-active {
+  top: 0vh;
+  transition: all 0.4s ease-in-out;
+}
+
+.fade-transition-enter,
+.fade-transition-leave-to {
+  top: 100vh;
 }
 </style>

@@ -27,7 +27,11 @@ export default {
 <template>
   <v-app>
     <v-main>
-      <weather-app v-if="weatherData" :collection="weatherData" :location="location" />
+      <weather-app
+        v-if="weatherData"
+        :collection="weatherData"
+        :location="location"
+      />
     </v-main>
   </v-app>
 </template>

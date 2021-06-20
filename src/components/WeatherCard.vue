@@ -1,4 +1,6 @@
 <script>
+import { WeatherMixins } from "./WeatherMixins.js";
+
 export default {
   name: "WeatherCard",
   props: {
@@ -8,25 +10,14 @@ export default {
     formattedDate: { type: String },
     id: { type: Number, required: true }
   },
-  methods: {
-    getImage(src) {
-      return require(`../assets/${src}.svg`);
-    },
-    getTempInCel(temp) {
-      return `${parseInt(temp - 273.15)}˚`;
-    }
-  }
+  mixins: [WeatherMixins]
 };
 </script>
 
 <template>
-  <v-card
-    height="250"
-    width="100"
-    @click="$emit('click')"
-  >
+  <v-card height="250" width="100" @click="$emit('click')">
     <v-row align="center">
-      <div class="date-card block">{{ formattedDate }}</div>
+      <div class="date-card secondary-text">{{ formattedDate }}</div>
       <v-col cols="18" class="pt-6">
         <v-img :src="`${getImage(img)}`" :alt="img"></v-img>
       </v-col>
@@ -36,3 +27,10 @@ export default {
     </v-row>
   </v-card>
 </template>
+
+<style scoped>
+.secondary-text {
+  color: #a8aabd;
+  font-size: 20px;
+}
+</style>
