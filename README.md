@@ -23,6 +23,11 @@ npm install
 npm run serve -- --port 3000
 ```
 
+### Run unit testing
+```
+npm run test:unit
+```
+
 
 ## Author
 
