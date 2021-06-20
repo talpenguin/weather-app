@@ -21,7 +21,7 @@ export default {
         :img="img"
         :formattedDate="formattedDate"
         :temp="temp"
-        :id="id"
+        :id="id.toString()"
         @click="$emit('click', id)"
       />
     </v-slide-item>

@@ -4,18 +4,22 @@ import { WeatherMixins } from "./WeatherMixins.js";
 export default {
   name: "WeatherCard",
   props: {
-    active: { type: Boolean, default: false },
     img: { type: String, default: "Clear" },
-    temp: { type: Number },
-    formattedDate: { type: String },
-    id: { type: Number, required: true }
+    temp: { type: Number, default: 0 },
+    formattedDate: { type: String, default: '' },
+    id: { type: String, default: ''}
   },
-  mixins: [WeatherMixins]
+  mixins: [WeatherMixins],
+  methods: {
+    idToString(id){
+      return id.toString()
+    }
+  }
 };
 </script>
 
 <template>
-  <v-card height="250" width="100" @click="$emit('click')">
+  <v-card :id="id" height="250" width="100" @click="$emit('click')">
     <v-row align="center">
       <div class="date-card secondary-text">{{ formattedDate }}</div>
       <v-col cols="18" class="pt-6">

@@ -9,7 +9,9 @@ For fetching the data from the endpoint I used the [axios](https://github.com/ax
 By using Vuetify's v-card and v-slide-group components I managed to implement a template of the weather app, and modified it using vuetify's classes.
 After I had a working MVP in a single component, I split the app into separate components: App, Header, Slider and Card in order to receive reusable components that I could render with the differnet data received by the api.
 
-The final step was applying styles and other beautifications of the app, as well as using mixin for methods that are used in multiple components.
+After expected behaviour was achieved, I applied styles and other beautifications to the application, as well as using mixin for methods that are used in multiple components.
+
+The final step was testing the application using Jest unit testing. Only one component (WeatherCard) is tested, therefore test coverage is relatively low.
 
 ## Project setup
 ```
